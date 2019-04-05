@@ -59,8 +59,8 @@ docker run -v mongodata:/data/db -p 27017:27017 --name mymongodb  -ti --rm lujas
 docker ps #open another termina and check whether mymongodb is running or not.   
 docker exec -ti mymongodb bash   
     root@aa01ffdb6f25:/# mongo mongodb://localhost:27017   
-      \>use admin   
-      \>db.createUser(
+      >use admin   
+      >db.createUser(
       {
         user: "useradmin",
         pwd: "admin123",
@@ -79,8 +79,8 @@ docker run -v /usr/jlu/mongo/data/db:/data/db -v /usr/jlu/mongo/data/dbconfig:/d
 docker ps #open another termina and check whether mymongodb is running or not.   
 docker exec -ti mymongodb bash   
   root@aa01ffdb6f25:/# mongo mongodb://localhost:27017   
-   \>use admin   
-      \>db.createUser(
+    >use admin   
+    >db.createUser(
       {
         user: "useradmin",
         pwd: "admin123",
