@@ -55,11 +55,11 @@ docker volume create --name=mongodata
 ```
 ### Run without config file first and set up admin account first; You may create database and correspoding user by this way;
 ```
-> docker run -v mongodata:/data/db -p 27017:27017 --name mymongodb  -ti --rm lujasper/devops:mongo   
-> docker ps #open another termina and check whether mymongodb is running or not.   
-> docker exec -ti mymongodb bash   
->>  root@aa01ffdb6f25:/# mongo mongodb://localhost:27017   
->>>   \>use admin   
+docker run -v mongodata:/data/db -p 27017:27017 --name mymongodb  -ti --rm lujasper/devops:mongo   
+docker ps #open another termina and check whether mymongodb is running or not.   
+docker exec -ti mymongodb bash   
+    root@aa01ffdb6f25:/# mongo mongodb://localhost:27017   
+      \>use admin   
       \>db.createUser(
       {
         user: "useradmin",
@@ -70,16 +70,16 @@ docker volume create --name=mongodata
 ```    
 ### Exit the docker container, ctrl+c or docker stop mymongodb. Then run with the config file.
 ```
-> docker run -v mongodata:/data/db -p 27017:27017 -ti --rm --name mymongodb lujasper/devops:mongo --config /etc/mongo/mongod.conf     
+docker run -v mongodata:/data/db -p 27017:27017 -ti --rm --name mymongodb lujasper/devops:mongo --config /etc/mongo/mongod.conf     
 ```
 ## Using local storage
 ### Run mongodb without authentication and set up admin account first
 ```
-> docker run -v /usr/jlu/mongo/data/db:/data/db -v /usr/jlu/mongo/data/dbconfig:/data/dbconfig -p 27017:27017 --name mymongodb  -ti --rm lujasper/devops:mongo   
-> docker ps #open another termina and check whether mymongodb is running or not.   
-> docker exec -ti mymongodb bash   
->>  root@aa01ffdb6f25:/# mongo mongodb://localhost:27017   
->>>   \>use admin   
+docker run -v /usr/jlu/mongo/data/db:/data/db -v /usr/jlu/mongo/data/dbconfig:/data/dbconfig -p 27017:27017 --name mymongodb  -ti --rm lujasper/devops:mongo   
+docker ps #open another termina and check whether mymongodb is running or not.   
+docker exec -ti mymongodb bash   
+  root@aa01ffdb6f25:/# mongo mongodb://localhost:27017   
+   \>use admin   
       \>db.createUser(
       {
         user: "useradmin",
@@ -90,7 +90,7 @@ docker volume create --name=mongodata
 ```    
 ### Exit the docker container, ctrl+c or docker stop mymongodb. Then run with the config file.
 ```
-> docker run -v /usr/jlu/mongo/data/db:/data/db -v /usr/jlu/mongo/data/dbconfig:/data/dbconfig -p 27017:27017 -ti --rm --name mymongodb lujasper/devops:mongo --config /etc/mongo/mongod.conf 
+docker run -v /usr/jlu/mongo/data/db:/data/db -v /usr/jlu/mongo/data/dbconfig:/data/dbconfig -p 27017:27017 -ti --rm --name mymongodb lujasper/devops:mongo --config /etc/mongo/mongod.conf 
 ```
 # Backup Docker Volume, Save it a container and then extract the whole container.
 Sharing Directories using Volumes
