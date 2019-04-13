@@ -24,3 +24,6 @@ docker exec -ti 6bc1635bf907 bash
 ```
 ## Check whether Jenkins is running via http://localhost:8080
 ## Then following the instruction to set up and create admin user. Please avoid the special character in password. If java error occurs, this may be the cause and try anothe password. When the admin user is created, it will try to remove the original password file. Make sure it is closed, otherwise it will fail to delete it. 
+
+
+docker exec -ti -u root [jenkins continer] /bin/bash
