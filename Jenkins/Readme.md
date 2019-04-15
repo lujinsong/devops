@@ -15,6 +15,7 @@ example: docker push lujasper/devops:jenkins
 ```
 ## Run it with local data storage, which will persist even the container is purged. The folder /var/jenkins_home is the jenkins home of the jenkins container.
 ## For windows, check [Docker mounting in windows](https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c)
+> To have docker run inside the docker container, need to add -v /var/run/docker.sock:/var/run/docker.sock
 ![Alt text](./images/dockersettings.jpg?raw=true "Docker Settings")
 ```
 # windows env. 
