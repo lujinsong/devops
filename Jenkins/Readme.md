@@ -1,4 +1,4 @@
-# Build Jenkins Docker Image
+# Build Jenkins Docker Image. Run docker_in_docker.
 ## Docker hub login. In windows, just run docker login
 ```
 docker login -u [yourdockerhubaccount] --password-stdin
@@ -17,13 +17,22 @@ example: docker push lujasper/devops:jenkins
 ## For windows, check [Docker mounting in windows](https://rominirani.com/docker-on-windows-mounting-host-directories-d96f3f056a2c)
 ![Alt text](./images/dockersettings.jpg?raw=true "Docker Settings")
 ```
-docker run -d -v c:/devops/jenkins:/var/jenkins_home -p 8080:8080 -p 50000:50000  lujasper/devops:jenkins   
+# windows env. 
+mkdir c:/devops/jenkins
+docker rm jenkins
+docker run -d -v c:/devops/jenkins:/var/jenkins_home -v //var/run/docker.sock:/var/run/docker.sock -p 8080:8080 -p 50000:50000 --name jenkins  lujasper/devops:jenkins   
 docker ps
 ## Use the container id above to connect to docker container.
-docker exec -ti 6bc1635bf907 bash
+docker exec -ti jenkins bash
+```
+```
+# mac/linux env
+mkdir /devops/jenkins
+docker rm jenkins
+docker run -d -v /devops/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -p 8080:8080 -p 50000:50000 --name jenkins  lujasper/devops:jenkins   
+docker ps
+## Use the container id above to connect to docker container.
+docker exec -ti jenkins bash
 ```
 ## Check whether Jenkins is running via http://localhost:8080
-## Then following the instruction to set up and create admin user. Please avoid the special character in password. If java error occurs, this may be the cause and try anothe password. When the admin user is created, it will try to remove the original password file. Make sure it is closed, otherwise it will fail to delete it. 
-
-
-docker exec -ti -u root [jenkins continer] /bin/bash
+## Please follow the instruction to create the admin user. When Jenkins is up first time, the user name is admin and password is in a secrete password file. Make sure to avoid the special characters in the password when you are prompted for new password. If java error occurs, this may be the cause of special character and try anothe password (delete the local storage volume for jenkins, for example every file and folder under c:/devops/jenkins). When the admin user is created, it will try to remove the original password file. So close the secrete password file before changing the password, otherwise Jenkins will fail to delete it. 

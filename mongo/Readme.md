@@ -28,7 +28,8 @@ docker run -d --rm -v c:/devops/mongo/data/db:/data/db -v c:/devops/mongo/data/c
 ### you may need to remove existing one before create a new volumn. docker system prune. docker volume rm -f --name=mongodata. 
 ```
 docker volume create --name=mongodata
-docker run -d --rm -v mongodata:/data/db -p 27017:27017  lujasper/devops:mongo 
+docker rm mongodb
+docker run -d --rm -v mongodata:/data/db -p 27017:27017 --name mongodb  lujasper/devops:mongo 
 ```
 ## docker start|stop lujasper/devops:mongo to start or stop mongodb server
 ```
@@ -36,7 +37,7 @@ docker ps
 ```
 ## Use the container id above to connect to docker container.
 ```
-docker exec -ti 6bc1635bf907 bash
+docker exec -ti mongodb bash
 ```
 ## Download Mongodb Compass to test it
 ```
@@ -55,6 +56,7 @@ docker volume create --name=mongodata
 ```
 ### Run without config file first and set up admin account first; You may create database and correspoding user by this way;
 ```
+docker rm mymongodb
 docker run -v mongodata:/data/db -p 27017:27017 --name mymongodb  -ti --rm lujasper/devops:mongo   
 docker ps #open another termina and check whether mymongodb is running or not.   
 docker exec -ti mymongodb bash   
@@ -70,11 +72,13 @@ docker exec -ti mymongodb bash
 ```    
 ### Exit the docker container, ctrl+c or docker stop mymongodb. Then run with the config file.
 ```
+docker rm mymongodb
 docker run -v mongodata:/data/db -p 27017:27017 -ti --rm --name mymongodb lujasper/devops:mongo --config /etc/mongo/mongod.conf     
 ```
 ## Using local storage
 ### Run mongodb without authentication and set up admin account first
 ```
+docker rm mymongodb
 docker run -v /usr/jlu/mongo/data/db:/data/db -v /usr/jlu/mongo/data/dbconfig:/data/dbconfig -p 27017:27017 --name mymongodb  -ti --rm lujasper/devops:mongo   
 docker ps #open another termina and check whether mymongodb is running or not.   
 docker exec -ti mymongodb bash   
@@ -90,6 +94,7 @@ docker exec -ti mymongodb bash
 ```    
 ### Exit the docker container, ctrl+c or docker stop mymongodb. Then run with the config file.
 ```
+docker rm mymongodb
 docker run -v /usr/jlu/mongo/data/db:/data/db -v /usr/jlu/mongo/data/dbconfig:/data/dbconfig -p 27017:27017 -ti --rm --name mymongodb lujasper/devops:mongo --config /etc/mongo/mongod.conf 
 ```
 # Backup Docker Volume, Save it a container and then extract the whole container.
